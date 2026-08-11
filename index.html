@@ -39,6 +39,24 @@
     #peene-mobile-guide .species small{display:block;font-size:10px;margin-top:4px}
     #peene-mobile-guide .cards{display:grid;gap:10px}
     #peene-mobile-guide .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 5px 16px rgba(20,55,43,.05);border-left:5px solid var(--accent)}
+    #peene-mobile-guide .lure-image{width:58px;height:58px;object-fit:contain;border-radius:12px;background:#f5f7f4;border:1px solid var(--line);padding:4px;flex:0 0 58px}
+    #peene-mobile-guide .inventory-tabs{display:flex;gap:7px;overflow:auto;padding:2px 1px 5px;scrollbar-width:none}
+    #peene-mobile-guide .inventory-tabs::-webkit-scrollbar{display:none}
+    #peene-mobile-guide .inventory-tab{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 11px;border-radius:12px;min-width:max-content;font-size:11px}
+    #peene-mobile-guide .inventory-tab.active{background:var(--deep);border-color:var(--deep);color:#fff}
+    #peene-mobile-guide .inventory-card{display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 5px 16px rgba(20,55,43,.05)}
+    #peene-mobile-guide .inventory-card img{width:88px;height:88px;object-fit:cover;border-radius:13px;border:1px solid var(--line)}
+    #peene-mobile-guide .inventory-card h3{font-size:13px;margin:0 0 4px}
+    #peene-mobile-guide .inventory-card p{font-size:11px;line-height:1.4;color:var(--muted);margin:0}
+    #peene-mobile-guide .inventory-card .specs{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+    #peene-mobile-guide .inventory-card .spec{font-size:10px;color:var(--deep);background:#edf3ee;border-radius:7px;padding:5px 6px}
+    #peene-mobile-guide .jig-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    #peene-mobile-guide .jig-tab{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:10px 5px;border-radius:12px;text-align:center;font-size:12px;font-weight:750}
+    #peene-mobile-guide .jig-tab.active{background:var(--deep);border-color:var(--deep);color:#fff}
+    #peene-mobile-guide .jig-card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--teal);border-radius:18px;padding:14px;box-shadow:0 5px 16px rgba(20,55,43,.05)}
+    #peene-mobile-guide .jig-card h3{font-size:14px;margin:0 0 5px}
+    #peene-mobile-guide .jig-card p{font-size:11px;color:var(--muted);line-height:1.4;margin:0}
+    #peene-mobile-guide .jig-card .jig-main{font-size:16px;color:var(--deep);font-weight:800;margin-bottom:6px}
     #peene-mobile-guide .card-top{display:flex;justify-content:space-between;gap:8px;align-items:start}
     #peene-mobile-guide .card-title{font-weight:750;font-size:14px;line-height:1.15}
     #peene-mobile-guide .card-note{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35}
@@ -78,7 +96,7 @@
     <div class="section-head"><h2>2 · Zielfisch</h2><span class="hint">Tippen zum Filtern</span></div>
     <div class="species">
       <button class="active" data-fish="alle"><span class="fish-dot" style="background:#17231f"></span><b>Alle</b><small>Suchmodus</small></button>
-      <button data-fish="hecht"><span class="fish-dot" style="background:var(--pike)"></span><b>Hecht</b><small>12-kg-Titan</small></button>
+      <button data-fish="hecht"><span class="fish-dot" style="background:var(--pike)"></span><b>Hecht</b><small>12-kg-Titanvorfach</small></button>
       <button data-fish="barsch"><span class="fish-dot" style="background:var(--perch)"></span><b>Barsch</b><small>7–10 g</small></button>
       <button data-fish="zander"><span class="fish-dot" style="background:var(--zander)"></span><b>Zander</b><small>10–18 g</small></button>
       <button data-fish="rapfen"><span class="fish-dot" style="background:var(--asp)"></span><b>Rapfen</b><small>10–18 g</small></button>
@@ -88,6 +106,28 @@
   </div>
 
   <div class="section"><div class="section-head"><h2>3 · Erste Wahl</h2><span class="hint" id="spot-label">flach / Schilfkante</span></div><div class="cards" id="recommendations"></div></div>
+
+  <div class="section">
+    <div class="section-head"><h2>4 · Dein restlicher Bestand</h2><span class="hint">aus den Fotos</span></div>
+    <div class="inventory-tabs">
+      <button class="inventory-tab active" data-inventory="gummi">Gummifische</button>
+      <button class="inventory-tab" data-inventory="hardbait">Hardbaits</button>
+      <button class="inventory-tab" data-inventory="metall">Metallköder</button>
+      <button class="inventory-tab" data-inventory="zubehoer">Zubehör</button>
+    </div>
+    <div class="cards" id="inventory-cards"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>5 · Zeck Jig Head #3/0</h2><span class="hint">Gewicht auswählen</span></div>
+    <div class="jig-tabs">
+      <button class="jig-tab active" data-jig="7">7 g</button>
+      <button class="jig-tab" data-jig="10">10 g</button>
+      <button class="jig-tab" data-jig="14">14 g</button>
+      <button class="jig-tab" data-jig="18">18 g</button>
+    </div>
+    <div id="jig-card" style="margin-top:10px"></div>
+  </div>
 
   <div class="section quick">
     <h2>Heute in die kleine Box</h2>
@@ -105,6 +145,20 @@
   <script>
     (()=>{
       const root=document.getElementById('peene-mobile-guide');
+      const inventory={
+        gummi:[['lures/foto-1-gummifische.jpeg','Gummifische mit Jigköpfen','Mehrere Gummifische im Bereich von etwa 7–15 cm. Kleinere Modelle passen zu Zander und Barsch; größere Modelle zu Hecht mit Titanvorfach.','7–18 g Jigkopf','Barsch · Zander · Hecht','Einzelne Alt-Ködergewichte nicht sicher ablesbar']],
+        hardbait:[['lures/foto-2-hardbaits.jpeg','Mehrteilige Hardbaits und Oberflächenköder','Große mehrteilige Köder, Popper und Jerkbait-/Wobblerformen. Deine 14–37-g-Rute ist für die kleineren und mittleren Modelle geeignet.','Hardbait · Jerkbait · Popper','Hecht · Rapfen · Barsch','Das exakte Ködergewicht ist teilweise nicht ablesbar']],
+        metall:[['lures/foto-3-metallkoeder.jpeg','Metall- und Vibrationsköder','Silberne beziehungsweise blau-silberne Köder und kompakte Vibrationsköder. Schnell geführt für Rapfen, Hornhecht und aktive Barsche.','Auf dem Foto etwa 10–18 g','Rapfen · Hornhecht · Barsch','Exaktes Gewicht je Köder prüfen']],
+        zubehoer:[['lures/foto-4-softbaits.jpeg','Weitere Softbaits und Montagen','Zusätzliche Gummifische, Haken und bereits montierte Köder. Vor dem Einsatz Haken, Snap und Vorfach auf Beschädigungen prüfen.','7–18 g Jigköpfe','Barsch · Zander · Hecht','Montage vor dem Wurf kontrollieren'],['lures/foto-5-zubehoer.jpeg','Haken, Vorfächer und Kleinteile','Terminal Tackle für Ersatzmontagen. Die Kugeln und Haken sind Zubehör und keine eigenständigen Kunstköder.','Ersatz- und Montagematerial','Alle Zielfische','Kein eigenständiger Zielköder']],
+      };
+      const jigData={
+        '7':{title:'Zeck Jig Head #3/0 · 7 g',main:'7 g = flach und langsam',bait:'7–10 cm Gummifisch',fish:'Barsch · kleinere Zander · gelegentlicher Hecht',where:'Flaches Wasser, wenig Strömung, Krautkante.',note:'Für 12-cm-Köder nur bei sehr flachem oder ruhigem Wasser sinnvoll.'},
+        '10':{title:'Zeck Jig Head #3/0 · 10 g',main:'10 g = universell im flacheren Bereich',bait:'8–10 cm Gummifisch · Pop-Eye 10 cm',fish:'Barsch · Zander · Hecht',where:'Mittlere Tiefe und mäßige Strömung.',note:'Der Gravity Twitch ist ein Hardbait und wird nicht mit einem Jigkopf kombiniert.'},
+        '14':{title:'Zeck Jig Head #3/0 · 14 g',main:'14 g = Standard für Zander',bait:'10–12 cm Gummifisch · Baby Rippler 12 cm',fish:'Zander · Hecht · große Barsche',where:'Tiefere Kanten, Hafeneinfahrten und normale Strömung.',note:'Deine wichtigste Kombination: Baby Rippler Moor Silver oder Real Shad + 14 g.'},
+        '18':{title:'Zeck Jig Head #3/0 · 18 g',main:'18 g = Tiefe, Wind und Strömung',bait:'12 cm Baby Rippler · 12–15 cm Gummifisch',fish:'Zander · Hecht · große Barsche',where:'Stärkere Strömung, tieferes Wasser und Wind.',note:'Nur so schwer fischen, dass der Köder noch sauber vom Grund abhebt.'}
+      };
+      let inventoryKey='gummi';
+      let jigKey='7';
       const data={
         morgen:{label:'Sonnenaufgang',spot:'flach / Schilfkante',cards:[
           ['hecht','Hecht','Gravity Twitch MR 9,5 cm · Firetiger','15 g','Langsam twitchen, 2–5 s pausieren.','12-kg-Titan','Schilf · Kraut · Hafenkante'],
@@ -154,13 +208,27 @@
         root.querySelector('#spot-label').textContent=rec.spot;
         const items=fish==='alle'?rec.cards:rec.cards.filter(x=>x[0]===fish);
         const accent={hecht:'pike',barsch:'perch',zander:'zander',rapfen:'asp',meerforelle:'sea',hornhecht:'gar'};
-        root.querySelector('#recommendations').innerHTML=items.length?items.map(x=>`<article class="card" style="--accent:var(--${accent[x[0]]})"><div class="card-top"><div><div class="card-title">${x[1]}</div><div class="card-note">${x[2]}</div></div><span class="weight">${x[3]}</span></div><div class="lure"><strong>Führung:</strong> ${x[4]}</div><div class="row"><span class="tag">${x[5]}</span><span class="tag">${x[6]}</span></div></article>`).join(''):'<div class="empty">Für diese Kombination ist kein Köder hinterlegt. Auf „Alle“ wechseln.</div>';
+        const images={
+          firetiger:'https://images.angelplatz.de/img-96/p/kv0769/2000x2000/savage-gear-gravity-twitch-mr-9-5cm-15g-suspending-firetiger.jpg',
+          roach:'https://master-fish.kz/wa-data/public/shop/products/80/33/103380/images/145251/145251.0x720.jpg',
+          fatiris:'https://www.leurredelapeche.fr/24431-large_default/poisson-nageur-spro-fat-iris-60.jpg',
+          rippler:'https://www.hechtundbarsch.de/cdn/shop/files/Zeck-Baby-Rippler-Moor-Silver.jpg?v=1759437842&width=1000',
+          popeye:'https://spro.eu/wp-content/uploads/2022/06/2/2021-IRI-POP-TO-GO_10.jpg',
+          silver:'https://nycdn.nyehandel.se/store_2fbd8a46-cee7-4d1a-b01d-d9a47610191e/images/CQrlYjZ2OVH9IQj7dHZHDfCPkGdmwSxCIGwO6zQ6.png?height=800&width=800'
+        };
+        const imageFor=(name)=>{const n=name.toLowerCase();if(n.includes('firetiger'))return images.firetiger;if(n.includes('roach'))return images.roach;if(n.includes('fat iris'))return images.fatiris;if(n.includes('baby rippler'))return images.rippler;if(n.includes('pop-eye'))return images.popeye;return images.silver};
+        root.querySelector('#recommendations').innerHTML=items.length?items.map(x=>`<article class="card" style="--accent:var(--${accent[x[0]]})"><div class="card-top"><img class="lure-image" referrerpolicy="no-referrer" src="${imageFor(x[2])}" alt="${x[2]} Köderbild" loading="lazy"><div style="flex:1"><div class="card-title">${x[1]}</div><div class="card-note">${x[2]}</div></div><span class="weight">${x[3]}</span></div><div class="lure"><strong>Führung:</strong> ${x[4]}</div><div class="row"><span class="tag">${x[5]}</span><span class="tag">${x[6]}</span></div></article>`).join(''):'<div class="empty">Für diese Kombination ist kein Köder hinterlegt. Auf „Alle“ wechseln.</div>';
+        root.querySelector('#inventory-cards').innerHTML=inventory[inventoryKey].map(x=>`<article class="inventory-card"><img src="${x[0]}" alt="${x[1]} aus deinem Bestand" loading="lazy"><div><h3>${x[1]}</h3><p>${x[2]}</p><div class="specs"><span class="spec">${x[3]}</span><span class="spec">${x[4]}</span><span class="spec">${x[5]}</span></div></div></article>`).join('');
+        const jig=jigData[jigKey];
+        root.querySelector('#jig-card').innerHTML=`<article class="jig-card"><div class="jig-main">${jig.main}</div><h3>${jig.title}</h3><p><strong>Passender Köder:</strong> ${jig.bait}</p><p><strong>Zielfisch:</strong> ${jig.fish}</p><p><strong>Wasser:</strong> ${jig.where}</p><div class="row"><span class="tag">Hakengröße #3/0</span><span class="tag">${jig.note}</span></div></article>`;
       };
       root.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');time=b.dataset.time;render()}));
       root.querySelectorAll('.species button').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.species button').forEach(x=>x.classList.remove('active'));b.classList.add('active');fish=b.dataset.fish;render()}));
+      root.querySelectorAll('.inventory-tab').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.inventory-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');inventoryKey=b.dataset.inventory;render()}));
+      root.querySelectorAll('.jig-tab').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.jig-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');jigKey=b.dataset.jig;render()}));
       render();
     })();
   </script>
-</div>
-</body>
+</div></body>
 </html>
+
