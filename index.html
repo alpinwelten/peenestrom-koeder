@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f3d35">
+<title>Peenestrom · Köder-Checkliste</title>
+<style>html,body{margin:0;background:#f4f6f2}body{padding:calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom))}</style>
+</head>
+<body>
+<div id="peene-mobile-guide">
+  <style>
+    #peene-mobile-guide{--ink:#17231f;--muted:#64736e;--paper:#f4f6f2;--card:#fff;--line:#dde5df;--deep:#0f3d35;--teal:#168b78;--sun:#f0b64a;--pike:#d96845;--perch:#5f8fca;--zander:#7d69af;--shadow:0 10px 30px rgba(20,55,43,.10);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;color:var(--ink);background:var(--paper);padding:18px 14px 28px;border-radius:24px;max-width:760px;margin:0 auto}
+    #peene-mobile-guide *{box-sizing:border-box}
+    #peene-mobile-guide .hero{background:linear-gradient(135deg,#0f3d35 0%,#1d6f5f 62%,#d3a449 160%);color:#fff;border-radius:22px;padding:20px 18px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    #peene-mobile-guide .hero:after{content:"";position:absolute;right:-30px;bottom:-55px;width:180px;height:180px;border:1px solid rgba(255,255,255,.22);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.07),0 0 0 38px rgba(255,255,255,.05)}
+    #peene-mobile-guide .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;font-weight:700}
+    #peene-mobile-guide h1{font-size:27px;line-height:1.02;margin:7px 0 8px;letter-spacing:-.04em;max-width:320px}
+    #peene-mobile-guide .hero p{margin:0;font-size:13px;line-height:1.4;max-width:360px;color:rgba(255,255,255,.82)}
+    #peene-mobile-guide .setup{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px;position:relative;z-index:1}
+    #peene-mobile-guide .setup span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 9px;font-size:11px;font-weight:650}
+    #peene-mobile-guide .section{margin-top:17px}
+    #peene-mobile-guide .section-head{display:flex;align-items:end;justify-content:space-between;margin:0 2px 9px}
+    #peene-mobile-guide h2{font-size:16px;margin:0;letter-spacing:-.02em}
+    #peene-mobile-guide .hint{font-size:11px;color:var(--muted)}
+    #peene-mobile-guide .tabs{display:flex;gap:7px;overflow:auto;padding:2px 1px 5px;scrollbar-width:none}
+    #peene-mobile-guide .tabs::-webkit-scrollbar{display:none}
+    #peene-mobile-guide button{font:inherit;cursor:pointer}
+    #peene-mobile-guide .tab{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:10px 12px;border-radius:13px;min-width:max-content;text-align:left;box-shadow:0 2px 8px rgba(20,55,43,.04)}
+    #peene-mobile-guide .tab strong{display:block;font-size:12px;color:var(--ink)}
+    #peene-mobile-guide .tab small{display:block;font-size:10px;margin-top:2px}
+    #peene-mobile-guide .tab.active{background:var(--deep);border-color:var(--deep);color:#d8eee8}
+    #peene-mobile-guide .tab.active strong{color:#fff}
+    #peene-mobile-guide .species{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    #peene-mobile-guide .species button{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:10px 7px;color:var(--muted);text-align:center}
+    #peene-mobile-guide .species button.active{color:var(--ink);border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+    #peene-mobile-guide .fish-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:4px}
+    #peene-mobile-guide .species b{font-size:12px}
+    #peene-mobile-guide .species small{display:block;font-size:10px;margin-top:4px}
+    #peene-mobile-guide .cards{display:grid;gap:10px}
+    #peene-mobile-guide .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 5px 16px rgba(20,55,43,.05);border-left:5px solid var(--accent)}
+    #peene-mobile-guide .card-top{display:flex;justify-content:space-between;gap:8px;align-items:start}
+    #peene-mobile-guide .card-title{font-weight:750;font-size:14px;line-height:1.15}
+    #peene-mobile-guide .card-note{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35}
+    #peene-mobile-guide .weight{white-space:nowrap;background:#edf3ee;color:var(--deep);font-weight:800;border-radius:10px;padding:6px 8px;font-size:12px}
+    #peene-mobile-guide .lure{font-size:12px;line-height:1.4;margin:11px 0 0;padding-top:10px;border-top:1px solid var(--line)}
+    #peene-mobile-guide .lure strong{font-weight:760}
+    #peene-mobile-guide .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+    #peene-mobile-guide .tag{font-size:10px;padding:5px 7px;background:#f3f5f2;border-radius:8px;color:var(--muted)}
+    #peene-mobile-guide .quick{background:#173d34;color:#fff;border-radius:18px;padding:15px}
+    #peene-mobile-guide .quick h2{color:#fff;margin-bottom:9px}
+    #peene-mobile-guide .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    #peene-mobile-guide .quick-item{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:9px;font-size:11px;line-height:1.35}
+    #peene-mobile-guide .quick-item b{display:block;color:#fff;font-size:12px;margin-bottom:3px}
+    #peene-mobile-guide .legal{font-size:10px;line-height:1.45;color:var(--muted);margin:16px 2px 0}
+    #peene-mobile-guide .empty{background:var(--card);border:1px dashed var(--line);padding:16px;border-radius:16px;font-size:12px;color:var(--muted)}
+    @media(min-width:640px){#peene-mobile-guide{padding:24px}.cards{grid-template-columns:1fr 1fr!important}.hero{padding:26px 24px!important}.hero h1{font-size:34px!important}}
+  </style>
+  <div class="hero">
+    <div class="eyebrow">Peenestrom · Lieper Winkel</div>
+    <h1>Schnellwahl für den Angeltag</h1>
+    <p>Rankwitz · Quilitz · Hecht, Barsch und Zander</p>
+    <div class="setup"><span>Rute 14–37 g</span><span>Rolle 3000</span><span>0,18 mm Geflecht</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>1 · Tageszeit wählen</h2><span class="hint" id="time-label">Sonnenaufgang</span></div>
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-time="morgen"><strong>Früh</strong><small>Aufgang–09:00</small></button>
+      <button class="tab" data-time="vormittag"><strong>Vormittag</strong><small>09:00–12:00</small></button>
+      <button class="tab" data-time="mittag"><strong>Mittag</strong><small>12:00–16:00</small></button>
+      <button class="tab" data-time="abend"><strong>Abend</strong><small>16:00–Dämmerung</small></button>
+      <button class="tab" data-time="daemmerung"><strong>Dämmerung</strong><small>Zanderzeit</small></button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>2 · Zielfisch</h2><span class="hint">Tippen zum Filtern</span></div>
+    <div class="species">
+      <button class="active" data-fish="alle"><span class="fish-dot" style="background:#17231f"></span><b>Alle</b><small>Suchmodus</small></button>
+      <button data-fish="hecht"><span class="fish-dot" style="background:var(--pike)"></span><b>Hecht</b><small>12-kg-Titan</small></button>
+      <button data-fish="barsch"><span class="fish-dot" style="background:var(--perch)"></span><b>Barsch</b><small>7–10 g</small></button>
+      <button data-fish="zander"><span class="fish-dot" style="background:var(--zander)"></span><b>Zander</b><small>10–18 g</small></button>
+    </div>
+  </div>
+
+  <div class="section"><div class="section-head"><h2>3 · Erste Wahl</h2><span class="hint" id="spot-label">flach / Schilfkante</span></div><div class="cards" id="recommendations"></div></div>
+
+  <div class="section quick">
+    <h2>Heute in die kleine Box</h2>
+    <div class="quick-grid">
+      <div class="quick-item"><b>Hecht</b>Gravity Twitch 9,5 cm · 15 g<br>Firetiger + 30 cm Titan 12 kg</div>
+      <div class="quick-item"><b>Barsch</b>Gravity Twitch 8,3 cm · 10 g<br>Roach + 7–10 g Jig</div>
+      <div class="quick-item"><b>Zander</b>Baby Rippler 12 cm<br>Real Shad / Moor Silver + 14 g</div>
+      <div class="quick-item"><b>Reserve</b>Kiwi Lemon + 18 g<br>bei Wind, Tiefe oder Strömung</div>
+    </div>
+  </div>
+
+  <p class="legal">Recht vor Ort prüfen: Angelerlaubnis kann strengere Regeln enthalten. Für den Peenestrom nennt das LALLF aktuell 20 cm Barsch und 40 cm Zander-Mindestmaß; zusätzliche Vorgaben des Fischereiberechtigten gehen vor.</p>
+
+  <script>
+    (()=>{
+      const root=document.getElementById('peene-mobile-guide');
+      const data={
+        morgen:{label:'Sonnenaufgang',spot:'flach / Schilfkante',cards:[
+          ['hecht','Hecht','Gravity Twitch MR 9,5 cm · Firetiger','15 g','Langsam twitchen, 2–5 s pausieren.','12-kg-Titan','Schilf · Kraut · Hafenkante'],
+          ['barsch','Barsch','Gravity Twitch MR 8,3 cm · Roach','10 g','Zügig führen, kurze Stopps.','7–10 g Jig','Kleinfisch · flache Kante'],
+          ['zander','Zander','Baby Rippler · Real Shad','10–14 g','Grundnah, kurze Sprünge.','30 cm Titan','Übergang flach/tief']
+        ]},
+        vormittag:{label:'Aktive Räuber',spot:'Kanten systematisch absuchen',cards:[
+          ['hecht','Hecht','Spro Fat Iris 60 CR · Herring','18 g','Gleichmäßig, knapp über Kraut.','12-kg-Titan','Krautlöcher · Einfahrten'],
+          ['barsch','Barsch','Vorhandener 7–10 cm Gummifisch','7–10 g','Mittelzügig, Grundkontakt vermeiden.','leichtes Vorfach','Strömungsschatten'],
+          ['zander','Zander','Baby Rippler · Moor Silver','14 g','Grundkontakt halten.','30 cm Titan','erste tiefere Kante']
+        ]},
+        mittag:{label:'Heller Tag',spot:'tiefer / Strömungskante',cards:[
+          ['zander','Zander','Baby Rippler · Real Shad oder Moor Silver','14–18 g','Über Grund jiggen, lange Absinkphase.','30 cm Titan','Tiefe · Strömungskante'],
+          ['barsch','Barsch','Spro Fat Iris 60 CR · Herring','18 g','Kompakter Suchköder.','leichtes Vorfach','Kante · tieferes Wasser'],
+          ['hecht','Hecht','Vorhandener 12–15 cm Gummifisch','14–18 g','Langsam über Kraut und Kante.','12-kg-Titan','Krautkante']
+        ]},
+        abend:{label:'Abendaktivität',spot:'flach zurückfischen',cards:[
+          ['hecht','Hecht','Gravity Twitch MR 9,5 cm · Firetiger','15 g','Pausen verlängern, flach führen.','12-kg-Titan','Schilfkante · Bucht'],
+          ['barsch','Barsch','Pop-Eye To Go · UV Salt & Pepper','10 g','Oberflächennah bei Raub.','12-kg-Titan bei Hecht','Buchten · Kleinfisch'],
+          ['zander','Zander','Baby Rippler · Kiwi Lemon','14–18 g','Langsam, nicht hektisch.','30 cm Titan','flach/tief-Übergang']
+        ]},
+        daemmerung:{label:'Zanderzeit',spot:'grundnah / langsam',cards:[
+          ['zander','Zander','Baby Rippler · Moor Silver oder Real Shad','10–14 g','10–30 cm über Grund, lange Pausen.','30 cm Titan','Kante · Hafeneinfahrt'],
+          ['hecht','Hecht','Pop-Eye To Go · UV Mojito','14 g','Oberfläche nur bei sichtbarem Raub.','12-kg-Titan','flache Bucht'],
+          ['barsch','Barsch','Vorhandener dunkler 7–10 cm Gummi','7–10 g','Langsam an der Kante.','leichtes Vorfach','Restlicht · Kraut']
+        ]}
+      };
+      let time='morgen',fish='alle';
+      const render=()=>{
+        const rec=data[time];
+        root.querySelector('#time-label').textContent=rec.label;
+        root.querySelector('#spot-label').textContent=rec.spot;
+        const items=fish==='alle'?rec.cards:rec.cards.filter(x=>x[0]===fish);
+        root.querySelector('#recommendations').innerHTML=items.length?items.map(x=>`<article class="card" style="--accent:var(--${x[0]==='hecht'?'pike':x[0]==='barsch'?'perch':'zander'})"><div class="card-top"><div><div class="card-title">${x[1]}</div><div class="card-note">${x[2]}</div></div><span class="weight">${x[3]}</span></div><div class="lure"><strong>Führung:</strong> ${x[4]}</div><div class="row"><span class="tag">${x[5]}</span><span class="tag">${x[6]}</span></div></article>`).join(''):'<div class="empty">Für diese Kombination ist kein Köder hinterlegt. Auf „Alle“ wechseln.</div>';
+      };
+      root.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');time=b.dataset.time;render()}));
+      root.querySelectorAll('.species button').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.species button').forEach(x=>x.classList.remove('active'));b.classList.add('active');fish=b.dataset.fish;render()}));
+      render();
+    })();
+  </script>
+</div>
+</body>
+</html>
