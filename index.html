@@ -10,7 +10,7 @@
 <body>
 <div id="peene-mobile-guide">
   <style>
-    #peene-mobile-guide{--ink:#17231f;--muted:#64736e;--paper:#f4f6f2;--card:#fff;--line:#dde5df;--deep:#0f3d35;--teal:#168b78;--sun:#f0b64a;--pike:#d96845;--perch:#5f8fca;--zander:#7d69af;--shadow:0 10px 30px rgba(20,55,43,.10);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;color:var(--ink);background:var(--paper);padding:18px 14px 28px;border-radius:24px;max-width:760px;margin:0 auto}
+    #peene-mobile-guide{--ink:#17231f;--muted:#64736e;--paper:#f4f6f2;--card:#fff;--line:#dde5df;--deep:#0f3d35;--teal:#168b78;--sun:#f0b64a;--pike:#d96845;--perch:#5f8fca;--zander:#7d69af;--asp:#c58b35;--sea:#2e8f9c;--gar:#9b6a9f;--shadow:0 10px 30px rgba(20,55,43,.10);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;color:var(--ink);background:var(--paper);padding:18px 14px 28px;border-radius:24px;max-width:760px;margin:0 auto}
     #peene-mobile-guide *{box-sizing:border-box}
     #peene-mobile-guide .hero{background:linear-gradient(135deg,#0f3d35 0%,#1d6f5f 62%,#d3a449 160%);color:#fff;border-radius:22px;padding:20px 18px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
     #peene-mobile-guide .hero:after{content:"";position:absolute;right:-30px;bottom:-55px;width:180px;height:180px;border:1px solid rgba(255,255,255,.22);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.07),0 0 0 38px rgba(255,255,255,.05)}
@@ -59,7 +59,7 @@
   <div class="hero">
     <div class="eyebrow">Peenestrom · Lieper Winkel</div>
     <h1>Schnellwahl für den Angeltag</h1>
-    <p>Rankwitz · Quilitz · Hecht, Barsch und Zander</p>
+    <p>Rankwitz · Quilitz · Hecht, Zander, Barsch, Rapfen, Meerforelle und Hornhecht</p>
     <div class="setup"><span>Rute 14–37 g</span><span>Rolle 3000</span><span>0,18 mm Geflecht</span></div>
   </div>
 
@@ -81,6 +81,9 @@
       <button data-fish="hecht"><span class="fish-dot" style="background:var(--pike)"></span><b>Hecht</b><small>12-kg-Titan</small></button>
       <button data-fish="barsch"><span class="fish-dot" style="background:var(--perch)"></span><b>Barsch</b><small>7–10 g</small></button>
       <button data-fish="zander"><span class="fish-dot" style="background:var(--zander)"></span><b>Zander</b><small>10–18 g</small></button>
+      <button data-fish="rapfen"><span class="fish-dot" style="background:var(--asp)"></span><b>Rapfen</b><small>10–18 g</small></button>
+      <button data-fish="meerforelle"><span class="fish-dot" style="background:var(--sea)"></span><b>Meerforelle</b><small>14–18 g</small></button>
+      <button data-fish="hornhecht"><span class="fish-dot" style="background:var(--gar)"></span><b>Hornhecht</b><small>10–18 g</small></button>
     </div>
   </div>
 
@@ -92,7 +95,8 @@
       <div class="quick-item"><b>Hecht</b>Gravity Twitch 9,5 cm · 15 g<br>Firetiger + 30 cm Titan 12 kg</div>
       <div class="quick-item"><b>Barsch</b>Gravity Twitch 8,3 cm · 10 g<br>Roach + 7–10 g Jig</div>
       <div class="quick-item"><b>Zander</b>Baby Rippler 12 cm<br>Real Shad / Moor Silver + 14 g</div>
-      <div class="quick-item"><b>Reserve</b>Kiwi Lemon + 18 g<br>bei Wind, Tiefe oder Strömung</div>
+      <div class="quick-item"><b>Rapfen / Hornhecht</b>Silber-Hardbait oder Fat Iris<br>10–18 g, schnell führen</div>
+      <div class="quick-item"><b>Meerforelle</b>Silber/Blau-Hardbait<br>14–18 g, gleichmäßig einholen</div>
     </div>
   </div>
 
@@ -105,27 +109,42 @@
         morgen:{label:'Sonnenaufgang',spot:'flach / Schilfkante',cards:[
           ['hecht','Hecht','Gravity Twitch MR 9,5 cm · Firetiger','15 g','Langsam twitchen, 2–5 s pausieren.','12-kg-Titan','Schilf · Kraut · Hafenkante'],
           ['barsch','Barsch','Gravity Twitch MR 8,3 cm · Roach','10 g','Zügig führen, kurze Stopps.','7–10 g Jig','Kleinfisch · flache Kante'],
-          ['zander','Zander','Baby Rippler · Real Shad','10–14 g','Grundnah, kurze Sprünge.','30 cm Titan','Übergang flach/tief']
+          ['zander','Zander','Baby Rippler · Real Shad','10–14 g','Grundnah, kurze Sprünge.','30 cm Titan','Übergang flach/tief'],
+          ['rapfen','Rapfen','Spro Fat Iris · Herring','18 g','Schnell und geradlinig über die Fläche.','Snap','Strömung · Kleinfisch'],
+          ['meerforelle','Meerforelle','Vorhandener silber/blauer Hardbait','14–18 g','Gleichmäßig mit kurzen Stopps.','9-kg-Titan bei Hecht','windzugewandtes Ufer'],
+          ['hornhecht','Hornhecht','Pop-Eye To Go · UV Salt & Pepper','10–14 g','Zügig oberflächennah führen.','Snap','flache Bereiche · Sichtfisch']
         ]},
         vormittag:{label:'Aktive Räuber',spot:'Kanten systematisch absuchen',cards:[
           ['hecht','Hecht','Spro Fat Iris 60 CR · Herring','18 g','Gleichmäßig, knapp über Kraut.','12-kg-Titan','Krautlöcher · Einfahrten'],
           ['barsch','Barsch','Vorhandener 7–10 cm Gummifisch','7–10 g','Mittelzügig, Grundkontakt vermeiden.','leichtes Vorfach','Strömungsschatten'],
-          ['zander','Zander','Baby Rippler · Moor Silver','14 g','Grundkontakt halten.','30 cm Titan','erste tiefere Kante']
+          ['zander','Zander','Baby Rippler · Moor Silver','14 g','Grundkontakt halten.','30 cm Titan','erste tiefere Kante'],
+          ['rapfen','Rapfen','Silberner vorhandener Wobbler','10–18 g','Schnell gegen oder quer zur Strömung.','Snap','Strömungskante'],
+          ['meerforelle','Meerforelle','Silber/Blau-Hardbait aus Bestand','14–18 g','Gleichmäßig, gelegentliche Stopps.','9-kg-Titan bei Hecht','Außenkante'],
+          ['hornhecht','Hornhecht','Spro Fat Iris · Herring','18 g','Zügig und oberflächennah.','Snap','Kleinfischschwarm']
         ]},
         mittag:{label:'Heller Tag',spot:'tiefer / Strömungskante',cards:[
           ['zander','Zander','Baby Rippler · Real Shad oder Moor Silver','14–18 g','Über Grund jiggen, lange Absinkphase.','30 cm Titan','Tiefe · Strömungskante'],
           ['barsch','Barsch','Spro Fat Iris 60 CR · Herring','18 g','Kompakter Suchköder.','leichtes Vorfach','Kante · tieferes Wasser'],
-          ['hecht','Hecht','Vorhandener 12–15 cm Gummifisch','14–18 g','Langsam über Kraut und Kante.','12-kg-Titan','Krautkante']
+          ['hecht','Hecht','Vorhandener 12–15 cm Gummifisch','14–18 g','Langsam über Kraut und Kante.','12-kg-Titan','Krautkante'],
+          ['rapfen','Rapfen','Spro Fat Iris · Herring','18 g','Schnell an der Strömungskante.','Snap','Strömung · Oberfläche'],
+          ['meerforelle','Meerforelle','Silberner/blauer Hardbait','14–18 g','Gleichmäßig weit auswerfen.','9-kg-Titan bei Hecht','Windkante'],
+          ['hornhecht','Hornhecht','Pop-Eye To Go · UV Mojito','10–14 g','Zügig über flachem Wasser.','Snap','Schwarmfisch']
         ]},
         abend:{label:'Abendaktivität',spot:'flach zurückfischen',cards:[
           ['hecht','Hecht','Gravity Twitch MR 9,5 cm · Firetiger','15 g','Pausen verlängern, flach führen.','12-kg-Titan','Schilfkante · Bucht'],
           ['barsch','Barsch','Pop-Eye To Go · UV Salt & Pepper','10 g','Oberflächennah bei Raub.','12-kg-Titan bei Hecht','Buchten · Kleinfisch'],
-          ['zander','Zander','Baby Rippler · Kiwi Lemon','14–18 g','Langsam, nicht hektisch.','30 cm Titan','flach/tief-Übergang']
+          ['zander','Zander','Baby Rippler · Kiwi Lemon','14–18 g','Langsam, nicht hektisch.','30 cm Titan','flach/tief-Übergang'],
+          ['rapfen','Rapfen','Silberner Hardbait oder Fat Iris','10–18 g','Schnell an der Oberfläche suchen.','Snap','Strömungsfahne'],
+          ['meerforelle','Meerforelle','Silber/Blau-Hardbait','14–18 g','Gleichmäßig mit langen Würfen.','9-kg-Titan bei Hecht','Dämmerlicht · Windkante'],
+          ['hornhecht','Hornhecht','Pop-Eye To Go · UV Salt & Pepper','10–14 g','Oberflächennah und zügig.','Snap','flache Bucht']
         ]},
         daemmerung:{label:'Zanderzeit',spot:'grundnah / langsam',cards:[
           ['zander','Zander','Baby Rippler · Moor Silver oder Real Shad','10–14 g','10–30 cm über Grund, lange Pausen.','30 cm Titan','Kante · Hafeneinfahrt'],
           ['hecht','Hecht','Pop-Eye To Go · UV Mojito','14 g','Oberfläche nur bei sichtbarem Raub.','12-kg-Titan','flache Bucht'],
-          ['barsch','Barsch','Vorhandener dunkler 7–10 cm Gummi','7–10 g','Langsam an der Kante.','leichtes Vorfach','Restlicht · Kraut']
+          ['barsch','Barsch','Vorhandener dunkler 7–10 cm Gummi','7–10 g','Langsam an der Kante.','leichtes Vorfach','Restlicht · Kraut'],
+          ['rapfen','Rapfen','Silberner Hardbait','10–18 g','Schnell und oberflächennah.','Snap','Strömung · Restlicht'],
+          ['meerforelle','Meerforelle','Silber/Blau-Hardbait','14–18 g','Gleichmäßig, nicht zu langsam.','9-kg-Titan bei Hecht','Außenkante'],
+          ['hornhecht','Hornhecht','Silberner Wobbler oder Pop-Eye','10–14 g','Zügig durch die obere Wasserschicht.','Snap','Restlicht · Kleinfisch']
         ]}
       };
       let time='morgen',fish='alle';
@@ -134,7 +153,8 @@
         root.querySelector('#time-label').textContent=rec.label;
         root.querySelector('#spot-label').textContent=rec.spot;
         const items=fish==='alle'?rec.cards:rec.cards.filter(x=>x[0]===fish);
-        root.querySelector('#recommendations').innerHTML=items.length?items.map(x=>`<article class="card" style="--accent:var(--${x[0]==='hecht'?'pike':x[0]==='barsch'?'perch':'zander'})"><div class="card-top"><div><div class="card-title">${x[1]}</div><div class="card-note">${x[2]}</div></div><span class="weight">${x[3]}</span></div><div class="lure"><strong>Führung:</strong> ${x[4]}</div><div class="row"><span class="tag">${x[5]}</span><span class="tag">${x[6]}</span></div></article>`).join(''):'<div class="empty">Für diese Kombination ist kein Köder hinterlegt. Auf „Alle“ wechseln.</div>';
+        const accent={hecht:'pike',barsch:'perch',zander:'zander',rapfen:'asp',meerforelle:'sea',hornhecht:'gar'};
+        root.querySelector('#recommendations').innerHTML=items.length?items.map(x=>`<article class="card" style="--accent:var(--${accent[x[0]]})"><div class="card-top"><div><div class="card-title">${x[1]}</div><div class="card-note">${x[2]}</div></div><span class="weight">${x[3]}</span></div><div class="lure"><strong>Führung:</strong> ${x[4]}</div><div class="row"><span class="tag">${x[5]}</span><span class="tag">${x[6]}</span></div></article>`).join(''):'<div class="empty">Für diese Kombination ist kein Köder hinterlegt. Auf „Alle“ wechseln.</div>';
       };
       root.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');time=b.dataset.time;render()}));
       root.querySelectorAll('.species button').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.species button').forEach(x=>x.classList.remove('active'));b.classList.add('active');fish=b.dataset.fish;render()}));
