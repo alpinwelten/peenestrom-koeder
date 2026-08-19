@@ -72,6 +72,21 @@
     #peene-mobile-guide .quick-item b{display:block;color:#fff;font-size:12px;margin-bottom:3px}
     #peene-mobile-guide .legal{font-size:10px;line-height:1.45;color:var(--muted);margin:16px 2px 0}
     #peene-mobile-guide .empty{background:var(--card);border:1px dashed var(--line);padding:16px;border-radius:16px;font-size:12px;color:var(--muted)}
+    #peene-mobile-guide .rule-head{display:flex;justify-content:space-between;align-items:start;gap:8px}
+    #peene-mobile-guide .rule-name{font-weight:750;font-size:14px}
+    #peene-mobile-guide .rule-badge{font-size:10px;font-weight:800;border-radius:999px;padding:5px 8px;white-space:nowrap}
+    #peene-mobile-guide .rule-badge.closed{background:#f7e0d8;color:#a53a20}
+    #peene-mobile-guide .rule-badge.open{background:#e2efe6;color:#1d6b4f}
+    #peene-mobile-guide .rule-specs{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+    #peene-mobile-guide .rule-spec{font-size:10px;color:var(--deep);background:#edf3ee;border-radius:7px;padding:5px 6px}
+    #peene-mobile-guide .rule-spec b{font-weight:800}
+    #peene-mobile-guide .notice-card{background:var(--card);border:1px solid var(--line);border-left:5px solid #b3452a;border-radius:18px;padding:13px 14px;margin-top:10px;box-shadow:0 5px 16px rgba(20,55,43,.05)}
+    #peene-mobile-guide .notice-card h3{font-size:13px;margin:0 0 7px}
+    #peene-mobile-guide .notice-card p{font-size:11px;line-height:1.45;color:var(--muted);margin:0 0 6px}
+    #peene-mobile-guide .notice-card p:last-child{margin-bottom:0}
+    #peene-mobile-guide .notice-card b{color:var(--ink)}
+    #peene-mobile-guide .species button{position:relative}
+    #peene-mobile-guide .schon-dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:#c0442a}
     @media(min-width:640px){#peene-mobile-guide{padding:24px}.cards{grid-template-columns:1fr 1fr!important}.hero{padding:26px 24px!important}.hero h1{font-size:34px!important}}
   </style>
   <div class="hero">
@@ -129,6 +144,18 @@
     <div id="jig-card" style="margin-top:10px"></div>
   </div>
 
+  <div class="section">
+    <div class="section-head"><h2>6 · Maße &amp; Schonzeiten</h2><span class="hint">Küstengewässer M-V · Stand 08/2026</span></div>
+    <div class="cards" id="rules-cards"></div>
+    <div class="notice-card">
+      <h3>Verbote &amp; Gebietsregeln 2026</h3>
+      <p><b>Aal:</b> ganzjähriges Fangverbot für Angler in den Meeresgewässern (EU-Regelung 2026; Mindestmaß sonst 50 cm).</p>
+      <p><b>Dorsch:</b> Fangverbot für Angler in der Ostsee (EU-Regelung 2026).</p>
+      <p><b>Winterlager (Angelverbot 01.11.–31.03.):</b> Peene Anklam Hafen sowie Wolgast Hafen/Kanal.</p>
+      <p><b>Laichschongebiete (Angelverbot 01.04.–31.05.):</b> Bereich Zecheriner Brücke–Wolgast, u.&nbsp;a. Jamitzower Hard und Balmer See.</p>
+    </div>
+  </div>
+
   <div class="section quick">
     <h2>Heute in die kleine Box</h2>
     <div class="quick-grid">
@@ -140,7 +167,7 @@
     </div>
   </div>
 
-  <p class="legal">Recht vor Ort prüfen: Angelerlaubnis kann strengere Regeln enthalten. Für den Peenestrom nennt das LALLF aktuell 20 cm Barsch und 40 cm Zander-Mindestmaß; zusätzliche Vorgaben des Fischereiberechtigten gehen vor.</p>
+  <p class="legal">Maße und Schonzeiten: Küstengewässer Mecklenburg-Vorpommern nach LALLF, Stand 08/2026 — im Fischereibezirk Peenestrom gilt für Zander abweichend 40 cm (übrige Küste 45 cm); ein Maximalmaß/Entnahmefenster gibt es an der Küste M-V nicht. Tagesfangbegrenzung: 3 Hechte, 3 Zander, 3 Salmoniden. Recht vor Ort prüfen: Die Angelerlaubnis kann strengere Regeln enthalten; zusätzliche Vorgaben des Fischereiberechtigten gehen vor.</p>
 
   <script>
     (()=>{
@@ -227,6 +254,25 @@
       root.querySelectorAll('.inventory-tab').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.inventory-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');inventoryKey=b.dataset.inventory;render()}));
       root.querySelectorAll('.jig-tab').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.jig-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');jigKey=b.dataset.jig;render()}));
       render();
+      // rules[i] = [fisch, Name, Mindestmaß, Maximalmaß, Saison, schonVon 'MM-DD', schonBis 'MM-DD', Schonzeit-Anzeige, Tageslimit, Hinweis]
+      const rules=[
+        ['hecht','Hecht','50 cm','–','Sep.–Feb.','03-01','04-30','01.03.–30.04.','3 pro Tag','Kein Entnahmefenster an der Küste M-V — jeder entnommene Hecht zählt ins Tageslimit.'],
+        ['zander','Zander','40 cm','–','Mai–Okt. · Dämmerung','04-23','05-22','23.04.–22.05.','3 pro Tag','Peenestrom-Ausnahme: 40 cm statt 45 cm an der übrigen Küste (LALLF).'],
+        ['barsch','Barsch','20 cm','–','ganzjährig · Top Aug.–Nov.','','','keine','–','Keine Schonzeit in den Küstengewässern.'],
+        ['rapfen','Rapfen','–','–','Mai–Sep. · Oberfläche','','','keine','–','An der Küste M-V ohne gesetzliches Mindestmaß und ohne Schonzeit.'],
+        ['meerforelle','Meerforelle','45 cm','–','Mitte Dez.–April','09-15','12-14','15.09.–14.12.','3 pro Tag*','*Limit gilt für Lachs und Meerforelle zusammen (Lachs: 60 cm, gleiche Schonzeit).'],
+        ['hornhecht','Hornhecht','–','–','Mai–Juni','','','keine','–','Saisonfisch ohne Mindestmaß und ohne Schonzeit.'],
+        ['hering','Hering','–','–','März–April','','','keine','–','Kein Mindestmaß, keine Schonzeit — EU-Fangregeln können sich jährlich ändern.'],
+        ['flunder','Flunder','25 cm','–','Juli–Nov.','','','keine','–','Keine Schonzeit; grundnah über Sand fischen.']
+      ];
+      const ruleAccent={hecht:'pike',barsch:'perch',zander:'zander',rapfen:'asp',meerforelle:'sea',hornhecht:'gar',hering:'teal',flunder:'sun'};
+      const inSpan=(from,to)=>{const d=new Date(),md=(d.getMonth()+1)*100+d.getDate(),a=+from.replace('-',''),b=+to.replace('-','');return a<=b?md>=a&&md<=b:md>=a||md<=b};
+      root.querySelector('#rules-cards').innerHTML=rules.map(r=>{
+        const closed=r[5]&&inSpan(r[5],r[6]);
+        const badge=closed?'<span class="rule-badge closed">Jetzt Schonzeit</span>':(r[5]?'<span class="rule-badge open">aktuell frei</span>':'<span class="rule-badge open">keine Schonzeit</span>');
+        return `<article class="card" style="--accent:var(--${ruleAccent[r[0]]})"><div class="rule-head"><span class="rule-name"><span class="fish-dot" style="background:var(--${ruleAccent[r[0]]})"></span>${r[1]}</span>${badge}</div><div class="rule-specs"><span class="rule-spec">Min. <b>${r[2]}</b></span><span class="rule-spec">Max. <b>${r[3]}</b></span><span class="rule-spec">Saison <b>${r[4]}</b></span><span class="rule-spec">Schonzeit <b>${r[7]}</b></span><span class="rule-spec">Limit <b>${r[8]}</b></span></div><div class="card-note">${r[9]}</div></article>`;
+      }).join('');
+      rules.forEach(r=>{if(r[5]&&inSpan(r[5],r[6])){const b=root.querySelector(`.species button[data-fish="${r[0]}"]`);if(b)b.insertAdjacentHTML('beforeend','<span class="schon-dot" title="aktuell Schonzeit"></span>')}});
     })();
   </script>
 </div></body>
