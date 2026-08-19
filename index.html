@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#0f3d35">
 <title>Peenestrom · Köder-Checkliste</title>
 <style>html,body{margin:0;background:#f4f6f2}body{padding:calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom))}</style>
+<link rel="stylesheet" href="vendor/leaflet.css">
 </head>
 <body>
 <div id="peene-mobile-guide">
@@ -87,6 +88,19 @@
     #peene-mobile-guide .notice-card b{color:var(--ink)}
     #peene-mobile-guide .species button{position:relative}
     #peene-mobile-guide .schon-dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:#c0442a}
+    #peene-mobile-guide .map-chips{display:flex;gap:7px;overflow:auto;padding:2px 1px 5px;scrollbar-width:none}
+    #peene-mobile-guide .map-chips::-webkit-scrollbar{display:none}
+    #peene-mobile-guide .map-chip{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 11px;border-radius:12px;min-width:max-content;font-size:11px;font-weight:650}
+    #peene-mobile-guide .map-chip.active{background:var(--deep);border-color:var(--deep);color:#fff}
+    #peene-mobile-guide .map-chip .fish-dot{margin-right:5px}
+    #peene-mobile-guide #spot-map{height:340px;border-radius:18px;border:1px solid var(--line);box-shadow:0 5px 16px rgba(20,55,43,.05);margin-top:5px;z-index:0;background:#e8ede9}
+    #peene-mobile-guide .map-note{font-size:10px;line-height:1.45;color:var(--muted);margin:8px 2px 0}
+    #peene-mobile-guide .leaflet-container{font-family:inherit;font-size:11px}
+    #peene-mobile-guide .leaflet-popup-content{margin:10px 12px;line-height:1.4}
+    #peene-mobile-guide .leaflet-popup-content b{font-size:12px}
+    #peene-mobile-guide .pop-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+    #peene-mobile-guide .pop-tag{font-size:9px;padding:3px 6px;background:#edf3ee;border-radius:6px;color:var(--deep);font-weight:700}
+    #peene-mobile-guide .pop-src{display:block;margin-top:5px;font-size:9px;color:var(--muted)}
     @media(min-width:640px){#peene-mobile-guide{padding:24px}.cards{grid-template-columns:1fr 1fr!important}.hero{padding:26px 24px!important}.hero h1{font-size:34px!important}}
   </style>
   <div class="hero">
@@ -156,6 +170,18 @@
     </div>
   </div>
 
+  <div class="section">
+    <div class="section-head"><h2>7 · Spot-Karte Barsch &amp; Zander</h2><span class="hint">lädt online · OpenStreetMap</span></div>
+    <div class="map-chips">
+      <button class="map-chip active" data-spot="alle">Alle Spots</button>
+      <button class="map-chip" data-spot="barsch"><span class="fish-dot" style="background:var(--perch)"></span>Barsch</button>
+      <button class="map-chip" data-spot="zander"><span class="fish-dot" style="background:var(--zander)"></span>Zander</button>
+      <button class="map-chip active" data-schutz="1"><span class="fish-dot" style="background:#b3452a"></span>Schongebiete</button>
+    </div>
+    <div id="spot-map"></div>
+    <p class="map-note">Spots: redaktionelle Auswahl aus Guide-, Magazin- und Forenberichten (RUTE&nbsp;&amp;&nbsp;ROLLE, Barsch-Alarm, Anglerboard) — <b>ungefähre Lage</b>, keine Fanggarantie. Rote Kreise: Laichschongebiete (Angelverbot 01.04.–31.05.) bzw. Winterlager Wolgast (01.11.–31.03.) nach LALLF, Lage genähert — verbindliche Grenzen beim LALLF. Fahrwasser frei halten, nicht in der Rinne ankern.</p>
+  </div>
+
   <div class="section quick">
     <h2>Heute in die kleine Box</h2>
     <div class="quick-grid">
@@ -169,6 +195,7 @@
 
   <p class="legal">Maße und Schonzeiten: Küstengewässer Mecklenburg-Vorpommern nach LALLF, Stand 08/2026 — im Fischereibezirk Peenestrom gilt für Zander abweichend 40 cm (übrige Küste 45 cm); ein Maximalmaß/Entnahmefenster gibt es an der Küste M-V nicht. Tagesfangbegrenzung: 3 Hechte, 3 Zander, 3 Salmoniden. Recht vor Ort prüfen: Die Angelerlaubnis kann strengere Regeln enthalten; zusätzliche Vorgaben des Fischereiberechtigten gehen vor.</p>
 
+  <script src="vendor/leaflet.js"></script>
   <script>
     (()=>{
       const root=document.getElementById('peene-mobile-guide');
@@ -273,6 +300,47 @@
         return `<article class="card" style="--accent:var(--${ruleAccent[r[0]]})"><div class="rule-head"><span class="rule-name"><span class="fish-dot" style="background:var(--${ruleAccent[r[0]]})"></span>${r[1]}</span>${badge}</div><div class="rule-specs"><span class="rule-spec">Min. <b>${r[2]}</b></span><span class="rule-spec">Max. <b>${r[3]}</b></span><span class="rule-spec">Saison <b>${r[4]}</b></span><span class="rule-spec">Schonzeit <b>${r[7]}</b></span><span class="rule-spec">Limit <b>${r[8]}</b></span></div><div class="card-note">${r[9]}</div></article>`;
       }).join('');
       rules.forEach(r=>{if(r[5]&&inSpan(r[5],r[6])){const b=root.querySelector(`.species button[data-fish="${r[0]}"]`);if(b)b.insertAdjacentHTML('beforeend','<span class="schon-dot" title="aktuell Schonzeit"></span>')}});
+      // spots[i] = [lat, lon, 'barsch'|'zander'|'beide', Name, Zugang, Tipp, Quelle] — Lage genähert
+      const spots=[
+        [53.9450,13.9220,'barsch','Hafen Rankwitz','Ufer','Stege und Spundwand, gut vom Land aus; Kleinfisch steht im Hafen.','Anglerboard'],
+        [53.9500,13.9050,'zander','Fahrrinnenkante vor Rankwitz/Quilitz','Boot','Kanten mit Echolot suchen — dort, wo die einheimischen Boote liegen. Nicht im Fahrwasser ankern.','Barsch-Alarm-Forum'],
+        [53.8640,13.8330,'zander','Scharkante bei Zecherin','Boot','Scharkante der Fahrrinne — hier ist der Zander die Nummer 1.','Barsch-Alarm/simfisch'],
+        [54.0470,13.7720,'zander','Landzunge Sauzin','Ufer/Boot','Ufer fällt auf rund 10 m ab; vom Land nur eine kleine Schilflücke.','Anglerboard/Barsch-Alarm'],
+        [54.1130,13.8140,'beide','Engstelle Karlshagen','Boot','Fahrrinne bis 14 m tief. Juni/Juli Zander, Oktober klassische Barschzeit; Köpfe 10–40 g je Strömung.','RUTE & ROLLE'],
+        [54.0580,13.7780,'barsch','Hornwerft Wolgast','Ufer','Barschangler werden hier oft fündig. Achtung: Winterlager-Regeln Wolgast 01.11.–31.03.','Barsch-Alarm'],
+        [54.0100,14.0050,'beide','Loddiner Höft','Ufer/Boot','Tiefere Bereiche des Achterwassers — Zander und Barsch, am besten zum Sonnenaufgang.','traumdomizil-usedom'],
+        [53.9330,13.9600,'barsch','Achterwasser bei Krienke','Ufer/Boot','Lange Schilf- und Krautkanten; im Herbst deutlich besser.','Anglerboard/traumdomizil'],
+        [54.0090,14.0400,'barsch','Hafen Ückeritz','Ufer','Beliebter Uferplatz am Achterwasser.','traumdomizil-usedom'],
+        [54.0640,13.9490,'barsch','Hafen Zempin','Ufer','Uferplatz am Achterwasser; ringsum Schilfkanten.','traumdomizil-usedom']
+      ];
+      // schutz[i] = [lat, lon, Radius m, Name, Zeitraum] — Lage genähert, verbindliche Grenzen: LALLF
+      const schutz=[
+        [53.9509,14.0176,1200,'Balmer See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [53.9170,13.8780,800,'Jamitzower Hard','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.0300,13.7900,700,'Sauziner Bucht','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.0560,13.7950,500,'Mahlzower Bucht','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [53.8560,13.8480,700,'Rohrplan bei Zecherin','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.1150,13.7600,900,'Krösliner See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.0350,13.7300,700,'Hohendorfer See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.0570,13.7760,600,'Hafen Wolgast','Winterlager · 01.11.–31.03. nur eingeschränkt']
+      ];
+      if(window.L){
+        const map=L.map('spot-map',{scrollWheelZoom:false});
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:17,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'}).addTo(map);
+        map.fitBounds(spots.map(s=>[s[0],s[1]]),{padding:[18,18]});
+        const spotLayer=L.layerGroup().addTo(map);
+        const schutzLayer=L.layerGroup().addTo(map);
+        const fishColor={barsch:'#5f8fca',zander:'#7d69af'};
+        const popup=(s)=>`<b>${s[3]}</b><div class="pop-tags"><span class="pop-tag">${s[2]==='beide'?'Barsch + Zander':s[2].charAt(0).toUpperCase()+s[2].slice(1)}</span><span class="pop-tag">${s[4]}</span></div>${s[5]}<span class="pop-src">Quelle: ${s[6]} · Lage genähert</span>`;
+        const renderSpots=(f)=>{spotLayer.clearLayers();spots.filter(s=>f==='alle'||s[2]===f||s[2]==='beide').forEach(s=>{L.circleMarker([s[0],s[1]],{radius:9,weight:3,color:s[2]==='zander'?fishColor.zander:(s[2]==='beide'?fishColor.zander:fishColor.barsch),fillColor:s[2]==='barsch'?fishColor.barsch:(s[2]==='beide'?fishColor.barsch:fishColor.zander),fillOpacity:.75}).bindPopup(popup(s)).addTo(spotLayer)})};
+        schutz.forEach(z=>{L.circle([z[0],z[1]],{radius:z[2],color:'#b3452a',weight:2,dashArray:'6 5',fillColor:'#b3452a',fillOpacity:.12}).bindPopup(`<b>${z[3]}</b><br>${z[4]}<span class="pop-src">Lage genähert — verbindliche Grenzen: LALLF</span>`).addTo(schutzLayer)});
+        renderSpots('alle');
+        root.querySelectorAll('.map-chip[data-spot]').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.map-chip[data-spot]').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderSpots(b.dataset.spot)}));
+        const schutzChip=root.querySelector('.map-chip[data-schutz]');
+        schutzChip.addEventListener('click',()=>{if(map.hasLayer(schutzLayer)){map.removeLayer(schutzLayer);schutzChip.classList.remove('active')}else{map.addLayer(schutzLayer);schutzChip.classList.add('active')}});
+      }else{
+        document.getElementById('spot-map').innerHTML='<p style="padding:14px;font-size:12px;color:#64736e">Karte konnte nicht geladen werden (vendor/leaflet.js fehlt oder offline).</p>';
+      }
     })();
   </script>
 </div></body>
