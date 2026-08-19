@@ -88,6 +88,12 @@
     #peene-mobile-guide .notice-card b{color:var(--ink)}
     #peene-mobile-guide .species button{position:relative}
     #peene-mobile-guide .schon-dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:#c0442a}
+    #peene-mobile-guide .fold-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:12px 14px;box-shadow:0 2px 8px rgba(20,55,43,.04);text-align:left}
+    #peene-mobile-guide .fold-title{font-size:16px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+    #peene-mobile-guide .fold-hint{font-size:11px;color:var(--muted);margin-left:auto;text-align:right}
+    #peene-mobile-guide .chev{flex:0 0 auto;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .18s;margin:-3px 3px 0 0}
+    #peene-mobile-guide .fold-toggle.open .chev{transform:rotate(-135deg);margin-top:4px}
+    #peene-mobile-guide .fold-body{margin-top:10px}
     #peene-mobile-guide .map-chips{display:flex;gap:7px;overflow:auto;padding:2px 1px 5px;scrollbar-width:none}
     #peene-mobile-guide .map-chips::-webkit-scrollbar{display:none}
     #peene-mobile-guide .map-chip{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 11px;border-radius:12px;min-width:max-content;font-size:11px;font-weight:650}
@@ -159,14 +165,21 @@
   </div>
 
   <div class="section">
-    <div class="section-head"><h2>6 · Maße &amp; Schonzeiten</h2><span class="hint">Küstengewässer M-V · Stand 08/2026</span></div>
-    <div class="cards" id="rules-cards"></div>
-    <div class="notice-card">
-      <h3>Verbote &amp; Gebietsregeln 2026</h3>
-      <p><b>Aal:</b> ganzjähriges Fangverbot für Angler in den Meeresgewässern (EU-Regelung 2026; Mindestmaß sonst 50 cm).</p>
-      <p><b>Dorsch:</b> Fangverbot für Angler in der Ostsee (EU-Regelung 2026).</p>
-      <p><b>Winterlager (Angelverbot 01.11.–31.03.):</b> Peene Anklam Hafen sowie Wolgast Hafen/Kanal.</p>
-      <p><b>Laichschongebiete (Angelverbot 01.04.–31.05.):</b> Bereich Zecheriner Brücke–Wolgast, u.&nbsp;a. Jamitzower Hard und Balmer See.</p>
+    <button class="fold-toggle" id="rules-toggle" aria-expanded="false" aria-controls="rules-body">
+      <span class="fold-title">6 · Maße &amp; Schonzeiten</span>
+      <span class="fold-hint" id="rules-hint">antippen</span>
+      <span class="chev"></span>
+    </button>
+    <div class="fold-body" id="rules-body" hidden>
+      <div class="section-head" style="margin-top:2px"><span class="hint">Küstengewässer M-V · Stand 08/2026</span></div>
+      <div class="cards" id="rules-cards"></div>
+      <div class="notice-card">
+        <h3>Verbote &amp; Gebietsregeln 2026</h3>
+        <p><b>Aal:</b> ganzjähriges Fangverbot für Angler in den Meeresgewässern (EU-Regelung 2026; Mindestmaß sonst 50 cm).</p>
+        <p><b>Dorsch:</b> Fangverbot für Angler in der Ostsee (EU-Regelung 2026).</p>
+        <p><b>Winterlager (Angelverbot 01.11.–31.03.):</b> Peene Anklam Hafen sowie Wolgast Hafen/Kanal.</p>
+        <p><b>Laichschongebiete (Angelverbot 01.04.–31.05.):</b> Bereich Zecheriner Brücke–Wolgast, u.&nbsp;a. Jamitzower Hard und Balmer See.</p>
+      </div>
     </div>
   </div>
 
@@ -303,6 +316,10 @@
         return `<article class="card" style="--accent:var(--${ruleAccent[r[0]]})"><div class="rule-head"><span class="rule-name"><span class="fish-dot" style="background:var(--${ruleAccent[r[0]]})"></span>${r[1]}</span>${badge}</div><div class="rule-specs"><span class="rule-spec">Min. <b>${r[2]}</b></span><span class="rule-spec">Max. <b>${r[3]}</b></span><span class="rule-spec">Saison <b>${r[4]}</b></span><span class="rule-spec">Schonzeit <b>${r[7]}</b></span><span class="rule-spec">Limit <b>${r[8]}</b></span></div><div class="card-note">${r[9]}</div></article>`;
       }).join('');
       rules.forEach(r=>{if(r[5]&&inSpan(r[5],r[6])){const b=root.querySelector(`.species button[data-fish="${r[0]}"]`);if(b)b.insertAdjacentHTML('beforeend','<span class="schon-dot" title="aktuell Schonzeit"></span>')}});
+      const rulesBody=root.querySelector('#rules-body'),rulesToggle=root.querySelector('#rules-toggle');
+      const inSeason=rules.filter(r=>r[5]&&inSpan(r[5],r[6])).map(r=>r[1]);
+      root.querySelector('#rules-hint').textContent=inSeason.length?`jetzt Schonzeit: ${inSeason.join(', ')}`:'aktuell keine Schonzeit';
+      rulesToggle.addEventListener('click',()=>{const oeffnen=rulesBody.hidden;rulesBody.hidden=!oeffnen;rulesToggle.classList.toggle('open',oeffnen);rulesToggle.setAttribute('aria-expanded',String(oeffnen))});
       // spots[i] = [lat, lon, 'fisch1,fisch2', Name, Ufer(2=ja/1=eingeschränkt/0=nur Boot), Ufer-Text, Tipp, Quelle]
       // Häfen nach OpenStreetMap-Daten, Wasserpunkte redaktionell genähert
       const spots=[
