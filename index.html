@@ -143,25 +143,38 @@
   <div class="section"><div class="section-head"><h2>3 · Erste Wahl</h2><span class="hint" id="spot-label">flach / Schilfkante</span></div><div class="cards" id="recommendations"></div></div>
 
   <div class="section">
-    <div class="section-head"><h2>4 · Dein restlicher Bestand</h2><span class="hint">aus den Fotos</span></div>
-    <div class="inventory-tabs">
-      <button class="inventory-tab active" data-inventory="gummi">Gummifische</button>
-      <button class="inventory-tab" data-inventory="hardbait">Hardbaits</button>
-      <button class="inventory-tab" data-inventory="metall">Metallköder</button>
-      <button class="inventory-tab" data-inventory="zubehoer">Zubehör</button>
+    <button class="fold-toggle" id="inv-toggle" aria-expanded="false" aria-controls="inv-body">
+      <span class="fold-title">4 · Dein restlicher Bestand</span>
+      <span class="fold-hint">Gummis · Hardbaits · Metall · Zubehör</span>
+      <span class="chev"></span>
+    </button>
+    <div class="fold-body" id="inv-body" hidden>
+      <div class="section-head" style="margin-top:2px"><span class="hint">aus den Fotos</span></div>
+      <div class="inventory-tabs">
+        <button class="inventory-tab active" data-inventory="gummi">Gummifische</button>
+        <button class="inventory-tab" data-inventory="hardbait">Hardbaits</button>
+        <button class="inventory-tab" data-inventory="metall">Metallköder</button>
+        <button class="inventory-tab" data-inventory="zubehoer">Zubehör</button>
+      </div>
+      <div class="cards" id="inventory-cards"></div>
     </div>
-    <div class="cards" id="inventory-cards"></div>
   </div>
 
   <div class="section">
-    <div class="section-head"><h2>5 · Zeck Jig Head #3/0</h2><span class="hint">Gewicht auswählen</span></div>
-    <div class="jig-tabs">
-      <button class="jig-tab active" data-jig="7">7 g</button>
-      <button class="jig-tab" data-jig="10">10 g</button>
-      <button class="jig-tab" data-jig="14">14 g</button>
-      <button class="jig-tab" data-jig="18">18 g</button>
+    <button class="fold-toggle" id="jig-toggle" aria-expanded="false" aria-controls="jig-body">
+      <span class="fold-title">5 · Zeck Jig Head #3/0</span>
+      <span class="fold-hint">7 · 10 · 14 · 18 g</span>
+      <span class="chev"></span>
+    </button>
+    <div class="fold-body" id="jig-body" hidden>
+      <div class="jig-tabs">
+        <button class="jig-tab active" data-jig="7">7 g</button>
+        <button class="jig-tab" data-jig="10">10 g</button>
+        <button class="jig-tab" data-jig="14">14 g</button>
+        <button class="jig-tab" data-jig="18">18 g</button>
+      </div>
+      <div id="jig-card" style="margin-top:10px"></div>
     </div>
-    <div id="jig-card" style="margin-top:10px"></div>
   </div>
 
   <div class="section">
@@ -184,7 +197,13 @@
   </div>
 
   <div class="section">
-    <div class="section-head"><h2>7 · Spot-Karte</h2><span class="hint">lädt online · OpenStreetMap</span></div>
+    <button class="fold-toggle" id="map-toggle" aria-expanded="false" aria-controls="map-body">
+      <span class="fold-title">7 · Spot-Karte</span>
+      <span class="fold-hint" id="map-hint">antippen</span>
+      <span class="chev"></span>
+    </button>
+    <div class="fold-body" id="map-body" hidden>
+    <div class="section-head" style="margin-top:2px"><span class="hint">OpenStreetMap · Lage genähert</span></div>
     <div class="map-chips">
       <button class="map-chip active" data-spot="alle">Alle Spots</button>
       <button class="map-chip" data-spot="barsch"><span class="fish-dot" style="background:var(--perch)"></span>Barsch</button>
@@ -196,6 +215,7 @@
     </div>
     <div id="spot-map"></div>
     <p class="map-note">Spots: redaktionelle Auswahl aus Guide-, Magazin- und Forenberichten (RUTE&nbsp;&amp;&nbsp;ROLLE, Barsch-Alarm, Anglerboard, Anglercamp, traumdomizil, urlaubsangler) — <b>Lage genähert</b> (Häfen nach OpenStreetMap, Wasserpunkte redaktionell), keine Fanggarantie. Uferzugang steht in jedem Popup: <b>ja / eingeschränkt / nur Boot</b>. Rote Kreise: Laichschongebiete (Angelverbot 01.04.–31.05.) bzw. Winterlager Wolgast (01.11.–31.03.) nach LALLF, Lage genähert — verbindliche Grenzen beim LALLF. Fahrwasser frei halten, nicht in der Rinne ankern.</p>
+    </div>
   </div>
 
   <div class="section quick">
@@ -316,10 +336,8 @@
         return `<article class="card" style="--accent:var(--${ruleAccent[r[0]]})"><div class="rule-head"><span class="rule-name"><span class="fish-dot" style="background:var(--${ruleAccent[r[0]]})"></span>${r[1]}</span>${badge}</div><div class="rule-specs"><span class="rule-spec">Min. <b>${r[2]}</b></span><span class="rule-spec">Max. <b>${r[3]}</b></span><span class="rule-spec">Saison <b>${r[4]}</b></span><span class="rule-spec">Schonzeit <b>${r[7]}</b></span><span class="rule-spec">Limit <b>${r[8]}</b></span></div><div class="card-note">${r[9]}</div></article>`;
       }).join('');
       rules.forEach(r=>{if(r[5]&&inSpan(r[5],r[6])){const b=root.querySelector(`.species button[data-fish="${r[0]}"]`);if(b)b.insertAdjacentHTML('beforeend','<span class="schon-dot" title="aktuell Schonzeit"></span>')}});
-      const rulesBody=root.querySelector('#rules-body'),rulesToggle=root.querySelector('#rules-toggle');
       const inSeason=rules.filter(r=>r[5]&&inSpan(r[5],r[6])).map(r=>r[1]);
       root.querySelector('#rules-hint').textContent=inSeason.length?`jetzt Schonzeit: ${inSeason.join(', ')}`:'aktuell keine Schonzeit';
-      rulesToggle.addEventListener('click',()=>{const oeffnen=rulesBody.hidden;rulesBody.hidden=!oeffnen;rulesToggle.classList.toggle('open',oeffnen);rulesToggle.setAttribute('aria-expanded',String(oeffnen))});
       // spots[i] = [lat, lon, 'fisch1,fisch2', Name, Ufer(2=ja/1=eingeschränkt/0=nur Boot), Ufer-Text, Tipp, Quelle]
       // Häfen nach OpenStreetMap-Daten, Wasserpunkte redaktionell genähert
       const spots=[
@@ -350,6 +368,10 @@
         [54.0311,13.7531,700,'Hohendorfer See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
         [54.0548,13.7830,500,'Hafen Wolgast','Winterlager · 01.11.–31.03. nur eingeschränkt']
       ];
+      root.querySelector('#map-hint').textContent=`${spots.length} Spots · Schongebiete`;
+      let mapInited=false;
+      const initSpotMap=()=>{
+      if(mapInited)return;mapInited=true;
       if(window.L){
         const map=L.map('spot-map',{scrollWheelZoom:false});
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:17,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'}).addTo(map);
@@ -370,6 +392,8 @@
       }else{
         document.getElementById('spot-map').innerHTML='<p style="padding:14px;font-size:12px;color:#64736e">Karte konnte nicht geladen werden (vendor/leaflet.js fehlt oder offline).</p>';
       }
+      };
+      root.querySelectorAll('.fold-toggle').forEach(t=>{const body=root.querySelector('#'+t.getAttribute('aria-controls'));t.addEventListener('click',()=>{const oeffnen=body.hidden;body.hidden=!oeffnen;t.classList.toggle('open',oeffnen);t.setAttribute('aria-expanded',String(oeffnen));if(oeffnen&&t.id==='map-toggle')initSpotMap()})});
     })();
   </script>
 </div></body>
