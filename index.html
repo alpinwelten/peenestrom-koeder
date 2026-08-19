@@ -171,15 +171,18 @@
   </div>
 
   <div class="section">
-    <div class="section-head"><h2>7 · Spot-Karte Barsch &amp; Zander</h2><span class="hint">lädt online · OpenStreetMap</span></div>
+    <div class="section-head"><h2>7 · Spot-Karte</h2><span class="hint">lädt online · OpenStreetMap</span></div>
     <div class="map-chips">
       <button class="map-chip active" data-spot="alle">Alle Spots</button>
       <button class="map-chip" data-spot="barsch"><span class="fish-dot" style="background:var(--perch)"></span>Barsch</button>
       <button class="map-chip" data-spot="zander"><span class="fish-dot" style="background:var(--zander)"></span>Zander</button>
+      <button class="map-chip" data-spot="hecht"><span class="fish-dot" style="background:var(--pike)"></span>Hecht</button>
+      <button class="map-chip" data-spot="saison"><span class="fish-dot" style="background:var(--teal)"></span>Mefo · Horni · Hering</button>
+      <button class="map-chip" data-spot="ufer">Vom Ufer</button>
       <button class="map-chip active" data-schutz="1"><span class="fish-dot" style="background:#b3452a"></span>Schongebiete</button>
     </div>
     <div id="spot-map"></div>
-    <p class="map-note">Spots: redaktionelle Auswahl aus Guide-, Magazin- und Forenberichten (RUTE&nbsp;&amp;&nbsp;ROLLE, Barsch-Alarm, Anglerboard) — <b>ungefähre Lage</b>, keine Fanggarantie. Rote Kreise: Laichschongebiete (Angelverbot 01.04.–31.05.) bzw. Winterlager Wolgast (01.11.–31.03.) nach LALLF, Lage genähert — verbindliche Grenzen beim LALLF. Fahrwasser frei halten, nicht in der Rinne ankern.</p>
+    <p class="map-note">Spots: redaktionelle Auswahl aus Guide-, Magazin- und Forenberichten (RUTE&nbsp;&amp;&nbsp;ROLLE, Barsch-Alarm, Anglerboard, Anglercamp, traumdomizil, urlaubsangler) — <b>Lage genähert</b> (Häfen nach OpenStreetMap, Wasserpunkte redaktionell), keine Fanggarantie. Uferzugang steht in jedem Popup: <b>ja / eingeschränkt / nur Boot</b>. Rote Kreise: Laichschongebiete (Angelverbot 01.04.–31.05.) bzw. Winterlager Wolgast (01.11.–31.03.) nach LALLF, Lage genähert — verbindliche Grenzen beim LALLF. Fahrwasser frei halten, nicht in der Rinne ankern.</p>
   </div>
 
   <div class="section quick">
@@ -300,29 +303,35 @@
         return `<article class="card" style="--accent:var(--${ruleAccent[r[0]]})"><div class="rule-head"><span class="rule-name"><span class="fish-dot" style="background:var(--${ruleAccent[r[0]]})"></span>${r[1]}</span>${badge}</div><div class="rule-specs"><span class="rule-spec">Min. <b>${r[2]}</b></span><span class="rule-spec">Max. <b>${r[3]}</b></span><span class="rule-spec">Saison <b>${r[4]}</b></span><span class="rule-spec">Schonzeit <b>${r[7]}</b></span><span class="rule-spec">Limit <b>${r[8]}</b></span></div><div class="card-note">${r[9]}</div></article>`;
       }).join('');
       rules.forEach(r=>{if(r[5]&&inSpan(r[5],r[6])){const b=root.querySelector(`.species button[data-fish="${r[0]}"]`);if(b)b.insertAdjacentHTML('beforeend','<span class="schon-dot" title="aktuell Schonzeit"></span>')}});
-      // spots[i] = [lat, lon, 'barsch'|'zander'|'beide', Name, Zugang, Tipp, Quelle] — Lage genähert
+      // spots[i] = [lat, lon, 'fisch1,fisch2', Name, Ufer(2=ja/1=eingeschränkt/0=nur Boot), Ufer-Text, Tipp, Quelle]
+      // Häfen nach OpenStreetMap-Daten, Wasserpunkte redaktionell genähert
       const spots=[
-        [53.9450,13.9220,'barsch','Hafen Rankwitz','Ufer','Stege und Spundwand, gut vom Land aus; Kleinfisch steht im Hafen.','Anglerboard'],
-        [53.9500,13.9050,'zander','Fahrrinnenkante vor Rankwitz/Quilitz','Boot','Kanten mit Echolot suchen — dort, wo die einheimischen Boote liegen. Nicht im Fahrwasser ankern.','Barsch-Alarm-Forum'],
-        [53.8640,13.8330,'zander','Scharkante bei Zecherin','Boot','Scharkante der Fahrrinne — hier ist der Zander die Nummer 1.','Barsch-Alarm/simfisch'],
-        [54.0470,13.7720,'zander','Landzunge Sauzin','Ufer/Boot','Ufer fällt auf rund 10 m ab; vom Land nur eine kleine Schilflücke.','Anglerboard/Barsch-Alarm'],
-        [54.1130,13.8140,'beide','Engstelle Karlshagen','Boot','Fahrrinne bis 14 m tief. Juni/Juli Zander, Oktober klassische Barschzeit; Köpfe 10–40 g je Strömung.','RUTE & ROLLE'],
-        [54.0580,13.7780,'barsch','Hornwerft Wolgast','Ufer','Barschangler werden hier oft fündig. Achtung: Winterlager-Regeln Wolgast 01.11.–31.03.','Barsch-Alarm'],
-        [54.0100,14.0050,'beide','Loddiner Höft','Ufer/Boot','Tiefere Bereiche des Achterwassers — Zander und Barsch, am besten zum Sonnenaufgang.','traumdomizil-usedom'],
-        [53.9330,13.9600,'barsch','Achterwasser bei Krienke','Ufer/Boot','Lange Schilf- und Krautkanten; im Herbst deutlich besser.','Anglerboard/traumdomizil'],
-        [54.0090,14.0400,'barsch','Hafen Ückeritz','Ufer','Beliebter Uferplatz am Achterwasser.','traumdomizil-usedom'],
-        [54.0640,13.9490,'barsch','Hafen Zempin','Ufer','Uferplatz am Achterwasser; ringsum Schilfkanten.','traumdomizil-usedom']
+        [53.9352,13.9327,'barsch','Hafen Rankwitz',2,'ja — Stege & Spundwand','Gut vom Land aus; der Kleinfisch steht im Hafen, die Barsche dicht an Stegen und Spundwand.','Anglerboard'],
+        [53.9480,13.9000,'zander','Fahrrinnenkante vor Rankwitz/Quilitz',0,'nur Boot','Kanten mit dem Echolot suchen — dort, wo die einheimischen Boote liegen. Nicht im Fahrwasser ankern.','Barsch-Alarm-Forum'],
+        [53.8680,13.8235,'zander,hecht,rapfen','Zecheriner Brücke & Scharkante',1,'eingeschränkt — Uferstreifen am Brückenkopf','Scharkante der Fahrrinne (Zander Nr. 1, vom Boot) und Strukturen an den Brückenpfeilern; die Strömung bringt im Sommer auch Rapfen.','Barsch-Alarm/simfisch/traumdomizil'],
+        [54.0450,13.7760,'zander','Landzunge Sauzin',1,'eingeschränkt — nur eine kleine Schilflücke','Das Ufer fällt auf rund 10 m ab; Zugang über das ehemalige Armeegelände ist mühsam, vom Boot deutlich einfacher.','Anglerboard/Barsch-Alarm'],
+        [54.1080,13.8060,'zander,barsch,rapfen','Engstelle Karlshagen',0,'nur Boot','Fahrrinne bis 14 m: Juni/Juli beste Zanderzeit, Oktober klassische Barschzeit; Köpfe 10–40 g je Strömung.','RUTE & ROLLE'],
+        [54.0580,13.7835,'barsch','Hornwerft Wolgast',2,'ja — Kaikante','Barschangler werden hier oft fündig. Winterlager-Regeln Wolgast 01.11.–31.03. beachten.','Barsch-Alarm'],
+        [54.0549,13.7875,'hecht','Wolgaster Zugbrücke',2,'ja — Uferbereich an der Brücke','Gerümpel der alten Brücke am Grund: hängerträchtig, aber „fast täglich neue Fische“.','Barsch-Alarm/RUTE & ROLLE'],
+        [54.0548,13.7801,'hering,barsch','Stadthafen Wolgast',2,'ja — Hafenkante','Heringszug ca. Mitte März bis Ende April (ab 6–7 °C Wassertemperatur); bis 31.03. gelten die Winterlager-Regeln.','angelguide/einfachbleiben'],
+        [54.0110,14.0030,'zander,barsch','Loddiner Höft',2,'ja — vom Höft','Tiefere Bereiche des Achterwassers — am besten zum Sonnenaufgang.','traumdomizil-usedom'],
+        [53.9450,13.9920,'barsch,hecht','Krienker See / Achterwasser',1,'eingeschränkt — Schilfgürtel, Lücken suchen','Lange Schilf- und Krautkanten, im Herbst deutlich besser; am effektivsten vom driftenden Boot.','Anglerboard/alleangeln'],
+        [54.0108,14.0398,'barsch','Hafen Ückeritz',2,'ja — Hafen/Stege','Beliebter Uferplatz am Achterwasser.','traumdomizil-usedom'],
+        [54.0597,13.9542,'barsch','Hafen Zempin',2,'ja — Hafen/Stege','Uferplatz am Achterwasser, ringsum Schilfkanten.','traumdomizil-usedom'],
+        [54.0310,13.8560,'hecht','Krumminer Wiek',1,'eingeschränkt — am Naturhafen Krummin, sonst Schilf','Geschützte, ruhige Bucht — klassisches Hechtwasser; Schilfkanten am besten vom driftenden Boot befischen.','traumdomizil-usedom'],
+        [53.9920,13.9180,'hecht','Achterwasser-Mündung bei Warthe',0,'nur Boot','Strömungszone am Übergang Peenestrom/Achterwasser — Zone der kapitalen Hechte; der Peenestrom ist als Winterrevier (Jan./Feb.) fast legendär.','traumdomizil/urlaubsangler'],
+        [54.1380,13.7500,'meerforelle,hornhecht,hering','Nördlicher Peenestrom Freest/Peenemünde',2,'ja — Häfen & Molen Freest/Peenemünde','Meerforelle ab Februar (Schonzeit 15.09.–14.12.!); Hornhecht ab Ende April bis ca. 3. Maiwoche unter Land; Hering im Frühjahr an den Häfen.','praxis-meerforelle/alleangeln/Anglercamp']
       ];
       // schutz[i] = [lat, lon, Radius m, Name, Zeitraum] — Lage genähert, verbindliche Grenzen: LALLF
       const schutz=[
         [53.9509,14.0176,1200,'Balmer See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
-        [53.9170,13.8780,800,'Jamitzower Hard','Laichschongebiet · Angelverbot 01.04.–31.05.'],
-        [54.0300,13.7900,700,'Sauziner Bucht','Laichschongebiet · Angelverbot 01.04.–31.05.'],
-        [54.0560,13.7950,500,'Mahlzower Bucht','Laichschongebiet · Angelverbot 01.04.–31.05.'],
-        [53.8560,13.8480,700,'Rohrplan bei Zecherin','Laichschongebiet · Angelverbot 01.04.–31.05.'],
-        [54.1150,13.7600,900,'Krösliner See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
-        [54.0350,13.7300,700,'Hohendorfer See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
-        [54.0570,13.7760,600,'Hafen Wolgast','Winterlager · 01.11.–31.03. nur eingeschränkt']
+        [53.9165,13.9135,700,'Jamitzower Hard','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.0406,13.7806,600,'Sauziner Bucht','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.0710,13.7985,500,'Mahlzower Bucht (Krüs)','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [53.8700,13.8380,600,'Rohrplan bei Zecherin','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.1233,13.7597,800,'Krösliner See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.0311,13.7531,700,'Hohendorfer See','Laichschongebiet · Angelverbot 01.04.–31.05.'],
+        [54.0548,13.7830,500,'Hafen Wolgast','Winterlager · 01.11.–31.03. nur eingeschränkt']
       ];
       if(window.L){
         const map=L.map('spot-map',{scrollWheelZoom:false});
@@ -330,9 +339,12 @@
         map.fitBounds(spots.map(s=>[s[0],s[1]]),{padding:[18,18]});
         const spotLayer=L.layerGroup().addTo(map);
         const schutzLayer=L.layerGroup().addTo(map);
-        const fishColor={barsch:'#5f8fca',zander:'#7d69af'};
-        const popup=(s)=>`<b>${s[3]}</b><div class="pop-tags"><span class="pop-tag">${s[2]==='beide'?'Barsch + Zander':s[2].charAt(0).toUpperCase()+s[2].slice(1)}</span><span class="pop-tag">${s[4]}</span></div>${s[5]}<span class="pop-src">Quelle: ${s[6]} · Lage genähert</span>`;
-        const renderSpots=(f)=>{spotLayer.clearLayers();spots.filter(s=>f==='alle'||s[2]===f||s[2]==='beide').forEach(s=>{L.circleMarker([s[0],s[1]],{radius:9,weight:3,color:s[2]==='zander'?fishColor.zander:(s[2]==='beide'?fishColor.zander:fishColor.barsch),fillColor:s[2]==='barsch'?fishColor.barsch:(s[2]==='beide'?fishColor.barsch:fishColor.zander),fillOpacity:.75}).bindPopup(popup(s)).addTo(spotLayer)})};
+        const fishColor={barsch:'#5f8fca',zander:'#7d69af',hecht:'#d96845',rapfen:'#c58b35',meerforelle:'#2e8f9c',hornhecht:'#9b6a9f',hering:'#168b78'};
+        const fishName={barsch:'Barsch',zander:'Zander',hecht:'Hecht',rapfen:'Rapfen',meerforelle:'Meerforelle',hornhecht:'Hornhecht',hering:'Hering'};
+        const SAISON=['hering','hornhecht','meerforelle'];
+        const popup=(s)=>{const fische=s[2].split(',').map(f=>`<span class="pop-tag" style="color:#fff;background:${fishColor[f]}">${fishName[f]}</span>`).join('');return `<b>${s[3]}</b><div class="pop-tags">${fische}</div><b style="font-size:10px">Uferzugang: ${s[5]}</b><br>${s[6]}<span class="pop-src">Quelle: ${s[7]} · Lage genähert</span>`};
+        const matches=(s,f)=>{const fl=s[2].split(',');if(f==='alle')return true;if(f==='ufer')return s[4]>=1;if(f==='saison')return fl.some(x=>SAISON.includes(x));return fl.includes(f)};
+        const renderSpots=(f)=>{spotLayer.clearLayers();spots.filter(s=>matches(s,f)).forEach(s=>{const fl=s[2].split(',');L.circleMarker([s[0],s[1]],{radius:9,weight:3,color:fl[1]?fishColor[fl[1]]:fishColor[fl[0]],fillColor:fishColor[fl[0]],fillOpacity:.8}).bindPopup(popup(s)).addTo(spotLayer)})};
         schutz.forEach(z=>{L.circle([z[0],z[1]],{radius:z[2],color:'#b3452a',weight:2,dashArray:'6 5',fillColor:'#b3452a',fillOpacity:.12}).bindPopup(`<b>${z[3]}</b><br>${z[4]}<span class="pop-src">Lage genähert — verbindliche Grenzen: LALLF</span>`).addTo(schutzLayer)});
         renderSpots('alle');
         root.querySelectorAll('.map-chip[data-spot]').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.map-chip[data-spot]').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderSpots(b.dataset.spot)}));
